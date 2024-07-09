@@ -37,7 +37,7 @@ resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.use-this-vpc-for-example-instance.id
 
   route {
-    cidr_block = "10.40.1.0/24"
+    cidr_block = "10.40.0.0/16"
     gateway_id = aws_internet_gateway.igw-example-instance.id
   }
 
