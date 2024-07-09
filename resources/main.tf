@@ -61,3 +61,28 @@ resource "aws_route_table_association" "subnet-association" {
 #   gateway_id     = aws_internet_gateway.igw-example-instance.id
 #   route_table_id = aws_route_table.public-route-table.id
 # }
+
+
+
+resource "aws_security_group" "allow-all-traffic" {
+  name        = "allow-all-traffic"
+  description = "Allow TLS inbound traffic and all outbound traffic"
+  vpc_id      = aws_vpc.use-this-vpc-for-example-instance.id
+
+  tags = {
+    Name = "allow-all-traffic"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
+  security_group_id = aws_security_group.allow-all-traffic.id
+  cidr_ipv4         = "0.0.0.0./0"
+  ip_protocol       = "-1"
+}
+
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  security_group_id = aws_security_group.allow-all-traffic.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}
