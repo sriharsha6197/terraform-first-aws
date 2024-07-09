@@ -57,13 +57,6 @@ resource "aws_route_table_association" "subnet-association" {
   route_table_id = aws_route_table.public-route-table.id
 }
 
-# resource "aws_route_table_association" "igw-association" {
-#   gateway_id     = aws_internet_gateway.igw-example-instance.id
-#   route_table_id = aws_route_table.public-route-table.id
-# }
-
-
-
 resource "aws_security_group" "allow-all-traffic" {
   name        = "allow-all-traffic"
   description = "Allow TLS inbound traffic and all outbound traffic"
