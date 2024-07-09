@@ -3,6 +3,7 @@ resource "aws_instance" "example-instance" {
   instance_type = "t2.micro"
   subnet_id = "subnet-0b69ec03f9c790b5f"
   vpc_security_group_ids = [aws_security_group.allow-all-traffic.id]
+  associate_public_ip_address = true
 
   tags = {
     Name = "Example-instance"
