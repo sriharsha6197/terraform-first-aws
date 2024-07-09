@@ -76,7 +76,7 @@ resource "aws_security_group" "allow-all-traffic" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
   security_group_id = aws_security_group.allow-all-traffic.id
-  cidr_ipv4         = "0.0.0.0./0"
+  cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
 
