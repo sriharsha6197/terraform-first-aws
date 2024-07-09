@@ -17,7 +17,7 @@ resource "aws_vpc" "use-this-vpc-for-example-instance" {
 }
 
 resource "aws_subnet" "use-this-vpc-subnet-for-example-instance" {
-  vpc_id     = aws_vpc.main.id
+  vpc_id     = aws_vpc.use-this-vpc-for-example-instance.id
   cidr_block = "10.40.1.0/24"
 
   tags = {
@@ -26,7 +26,7 @@ resource "aws_subnet" "use-this-vpc-subnet-for-example-instance" {
 }
 
 resource "aws_internet_gateway" "igw-example-instance" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.use-this-vpc-for-example-instance.id
 
   tags = {
     Name = "igw-example-instance"
