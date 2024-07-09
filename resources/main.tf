@@ -1,6 +1,8 @@
 resource "aws_instance" "example-instance" {
   ami           = "ami-0b4f379183e5706b9"
   instance_type = "t2.micro"
+  subnet_id = "subnet-0b69ec03f9c790b5f"
+  vpc_security_group_ids = [aws_security_group.allow-all-traffic.id]
 
   tags = {
     Name = "Example-instance"
