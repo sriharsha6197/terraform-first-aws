@@ -90,3 +90,11 @@ resource "aws_instance" "frontend_instance_terraform" {
     Name = "frontendTerraform"
   }
 }
+
+resource "aws_route53_record" "www" {
+  zone_id = "Z06906613UXR2QKNVHT2M"
+  name    = "frontend.sriharsha.shop"
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.frontend_instance_terraform.private_ip]
+}
