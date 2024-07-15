@@ -15,21 +15,21 @@ resource "aws_subnet" "vpcEC2TerraformSubnet" {
   }
 }
 
-# resource "aws_internet_gateway" "IGWTerraform" {
-#   vpc_id = aws_vpc.vpcEC2Terraform.id
-
-#   tags = {
-#     Name = "IGWTerraform"
-#   }
-# }
-
-resource "aws_egress_only_internet_gateway" "IGWTerraform" {
+resource "aws_internet_gateway" "IGWTerraform" {
   vpc_id = aws_vpc.vpcEC2Terraform.id
 
   tags = {
     Name = "IGWTerraform"
   }
 }
+
+# resource "aws_egress_only_internet_gateway" "IGWTerraform" {
+#   vpc_id = aws_vpc.vpcEC2Terraform.id
+
+#   tags = {
+#     Name = "IGWTerraform"
+#   }
+# }
 
 resource "aws_route_table" "PublicRouteTableTerraform" {
   vpc_id = aws_vpc.vpcEC2Terraform.id
