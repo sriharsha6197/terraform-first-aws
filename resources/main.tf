@@ -15,7 +15,15 @@ resource "aws_subnet" "vpcEC2TerraformSubnet" {
   }
 }
 
-resource "aws_internet_gateway" "IGWTerraform" {
+# resource "aws_internet_gateway" "IGWTerraform" {
+#   vpc_id = aws_vpc.vpcEC2Terraform.id
+
+#   tags = {
+#     Name = "IGWTerraform"
+#   }
+# }
+
+resource "aws_egress_only_internet_gateway" "IGWTerraform" {
   vpc_id = aws_vpc.vpcEC2Terraform.id
 
   tags = {
@@ -26,10 +34,10 @@ resource "aws_internet_gateway" "IGWTerraform" {
 resource "aws_route_table" "PublicRouteTableTerraform" {
   vpc_id = aws_vpc.vpcEC2Terraform.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.IGWTerraform.id
-  }
+  # route {
+  #   cidr_block = "0.0.0.0/0"
+  #   gateway_id = aws_internet_gateway.IGWTerraform.id
+  # }
 
   tags = {
     Name = "PublicRouteTableTerraform"
@@ -37,15 +45,15 @@ resource "aws_route_table" "PublicRouteTableTerraform" {
 }
 
 resource "aws_route_table_association" "b" {
-  gateway_id     = aws_internet_gateway.IGWTerraform.id
+  subnet_id = aws_subnet.vpcEC2TerraformSubnet.id
   route_table_id = aws_route_table.PublicRouteTableTerraform.id
 }
 
-# resource "aws_route" "addingRoutes" {
-#   route_table_id            = aws_route_table.PublicRouteTableTerraform.id
-#   destination_cidr_block    = "0.0.0.0/0"
-#   local_gateway_id  = aws_internet_gateway.IGWTerraform.id
-# }
+resource "aws_route" "addingRoutes" {
+  route_table_id            = aws_route_table.PublicRouteTableTerraform.id
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id = aws_egress_only_internet_gateway.IGWTerraform.id
+}
 
 resource "aws_security_group" "allow_all_traffic_terraform" {
   name        = "allow_all_traffic_terraform"
