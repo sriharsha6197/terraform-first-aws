@@ -75,7 +75,7 @@ resource "aws_instance" "frontend_instance_terraform" {
     Name = "frontendTerraform"
   }
 }
-resource "aws_route53_record" "frontend" {
+resource "aws_route53_record" "www" {
   allow_overwrite = true
   zone_id = "Z06906613UXR2QKNVHT2M"
   name    = "frontend.sriharsha.shop"
