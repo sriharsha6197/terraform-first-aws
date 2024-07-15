@@ -39,7 +39,7 @@ resource "aws_route_table" "PublicRouteTableTerraform" {
 resource "aws_route" "addingRoutes" {
   route_table_id            = aws_route_table.PublicRouteTableTerraform.id
   destination_cidr_block    = "0.0.0.0/0"
-  local_gateway_id = aws_internet_gateway.IGWTerraform.id
+  local_gateway_id  = aws_internet_gateway.IGWTerraform.id
 }
 
 resource "aws_security_group" "allow_all_traffic_terraform" {
