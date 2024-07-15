@@ -1,84 +1,65 @@
-resource "aws_instance" "example-instance" {
-  ami           = "ami-0b4f379183e5706b9"
-  instance_type = "t2.micro"
-  subnet_id = "subnet-0b69ec03f9c790b5f"
-  vpc_security_group_ids = [aws_security_group.allow-all-traffic.id]
-  associate_public_ip_address = true
+resource "aws_vpc" "vpcEC2Terraform" {
+  cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = "Example-instance"
+    Name = "vpcEC2Terraform"
   }
 }
 
-resource "aws_vpc" "use-this-vpc-for-example-instance" {
-  cidr_block       = "10.40.0.0/16"
-  instance_tenancy = "default"
+resource "aws_subnet" "vpcEC2TerraformSubnet" {
+  vpc_id     = aws_vpc.vpcEC2Terraform.id
+  cidr_block = "192.168.1.0/24"
 
   tags = {
-    Name = "use-this-vpc-for-example-instance"
+    Name = "vpcEC2TerraformSubnet"
   }
 }
 
-resource "aws_subnet" "use-this-vpc-subnet-for-example-instance" {
-  vpc_id     = aws_vpc.use-this-vpc-for-example-instance.id
-  cidr_block = "10.40.1.0/24"
+resource "aws_internet_gateway" "IGWTerraform" {
+  vpc_id = aws_vpc.vpcEC2Terraform.id
 
   tags = {
-    Name = "use-this-vpc-subnet-for-example-instance"
+    Name = "IGWTerraform"
   }
 }
 
-resource "aws_internet_gateway" "igw-example-instance" {
-  vpc_id = aws_vpc.use-this-vpc-for-example-instance.id
+resource "aws_route_table" "PublicRouteTableTerraform" {
+  vpc_id = aws_vpc.vpcEC2Terraform.id
+
+  route {
+    cidr_block = "192.168.1.0/24"
+    gateway_id = aws_internet_gateway.IGWTerraform.id
+  }
 
   tags = {
-    Name = "igw-example-instance"
+    Name = "PublicRouteTableTerraform"
   }
 }
 
-resource "aws_route_table" "public-route-table" {
-  vpc_id = aws_vpc.use-this-vpc-for-example-instance.id
-
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = aws_internet_gateway.igw-example-instance.id
-#   }
-
-  tags = {
-    Name = "public-route-table"
-  }
+resource "aws_route" "addingRoutes" {
+  route_table_id            = aws_route_table.PublicRouteTableTerraform.id
+  destination_cidr_block    = "0.0.0.0/0"
+  local_gateway_id = aws_internet_gateway.IGWTerraform.id
 }
 
-# resource "aws_route" "add-routes-public-route-table" {
-#   route_table_id            = aws_route_table.public-route-table.id
-#   destination_cidr_block    = "0.0.0.0/0"
-#   gateway_id = aws_internet_gateway.igw-example-instance.id
-# }
-
-resource "aws_route_table_association" "subnet-association" {
-  subnet_id      = aws_subnet.use-this-vpc-subnet-for-example-instance.id
-  route_table_id = aws_route_table.public-route-table.id
-}
-
-resource "aws_security_group" "allow-all-traffic" {
-  name        = "allow-all-traffic"
+resource "aws_security_group" "allow_all_traffic_terraform" {
+  name        = "allow_all_traffic_terraform"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.use-this-vpc-for-example-instance.id
+  vpc_id      = aws_vpc.vpcEC2Terraform.id
 
   tags = {
-    Name = "allow-all-traffic"
+    Name = "allow_all_traffic_terraform"
   }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  security_group_id = aws_security_group.allow-all-traffic.id
+  security_group_id = aws_security_group.allow_all_traffic_terraform.id
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1"
+  ip_protocol = "-1"
 }
 
-
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.allow-all-traffic.id
+  security_group_id = aws_security_group.allow_all_traffic_terraform.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
