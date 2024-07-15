@@ -26,10 +26,10 @@ resource "aws_internet_gateway" "IGWTerraform" {
 resource "aws_route_table" "PublicRouteTableTerraform" {
   vpc_id = aws_vpc.vpcEC2Terraform.id
 
-  route {
-    cidr_block = "192.168.0.0/16"
-    gateway_id = aws_internet_gateway.IGWTerraform.id
-  }
+  # route {
+  #   cidr_block = "192.168.0.0/16"
+  #   gateway_id = aws_internet_gateway.IGWTerraform.id
+  # }
 
   tags = {
     Name = "PublicRouteTableTerraform"
