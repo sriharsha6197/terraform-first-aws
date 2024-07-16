@@ -24,6 +24,6 @@ data "aws_security_group" "datablock_security_group" {
 #####################################ROUTE53_ZONE_ID###############
 
 data "aws_route53_zone" "hosted_zone" {
-  name = "sriharsha.shop"
+  name = "sriharsha.shop."
   private_zone = true
 }
