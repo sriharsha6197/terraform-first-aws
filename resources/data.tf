@@ -26,6 +26,6 @@ variable "hosted_zone_route53" {
   default = "sriharsha.shop"
 }
 data "aws_route53_zone" "hosted_zone" {
-  name         = var.hosted_zone_route53
+  name = var.hosted_zone_route53
   private_zone = true
 }
