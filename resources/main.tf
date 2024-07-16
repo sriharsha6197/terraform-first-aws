@@ -78,7 +78,7 @@ resource "aws_instance" "frontend_instance_terraform" {
 resource "aws_route53_record" "www" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
-  name    = "frontend.${var.hosted_zone_route53}"
+  name    = "frontend.sriharsha.shop"
   type    = "A"
   ttl     = 300
   records = [aws_instance.frontend_instance_terraform.private_ip]
