@@ -25,5 +25,4 @@ data "aws_security_group" "datablock_security_group" {
 
 data "aws_route53_zone" "hosted_zone" {
   name = "sriharsha.shop."
-  private_zone = true
 }
