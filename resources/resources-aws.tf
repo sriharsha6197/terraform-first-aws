@@ -101,7 +101,7 @@ resource "aws_route53_record" "backend" {
   ttl = 300
   records = [aws_instance.backend_terraform.private_ip]
 }
-resource "aws_ssm_parameter" "expense.back.mysql_ip" {
+resource "aws_ssm_parameter" "expense_back_mysql_ip" {
   depends_on = [ aws_instance.mysql_terraform ]
   name  = "expense.back.mysql_ip"
   type  = "string"
