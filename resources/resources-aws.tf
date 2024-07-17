@@ -34,8 +34,8 @@ resource "null_resource" "frontend_setup" {
   depends_on = [ aws_route53_record.www ]
   provisioner "remote-exec" {
     inline = [ 
-      "dnf install ansible -y",
-      "ansible-pull -i ${aws_instance.frontend_instance_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend"
+      "sudo dnf install ansible -y",
+      "sudo ansible-pull -i ${aws_instance.frontend_instance_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend"
      ]
   }
 }
@@ -75,8 +75,8 @@ resource "null_resource" "mysql_setup" {
   depends_on = [ aws_route53_record.mysql ]
   provisioner "remote-exec" {
     inline = [  
-      "dnf install ansible -y",
-      "ansible-pull -i ${aws_instance.mysql_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=mysql"
+      "sudo dnf install ansible -y",
+      "sudo ansible-pull -i ${aws_instance.mysql_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=mysql"
     ]
   }
 }
@@ -90,7 +90,6 @@ resource "null_resource" "mysql_setup" {
 resource "aws_instance" "backend_terraform" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t3.medium"
-  availability_zone = "us-east-1e"
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
@@ -122,8 +121,8 @@ resource "null_resource" "backend" {
   }
   provisioner "remote-exec" {
     inline = [  
-      "dnf install ansible -y",
-      "ansible-pull -i ${aws_instance.backend_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend"
+      "sudo dnf install ansible -y",
+      "sudo ansible-pull -i ${aws_instance.backend_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend"
     ]
   }
 }
