@@ -38,6 +38,11 @@ resource "null_resource" "frontend_setup" {
   }
 }
 
+
+
+
+
+
 resource "aws_instance" "mysql_terraform" {
   ami = data.aws_ami.centos_ami.image_id
   instance_type = "t2.micro"
@@ -69,6 +74,12 @@ resource "null_resource" "mysql_setup" {
     EOF
   }
 }
+
+
+
+
+
+
 
 resource "aws_instance" "backend_terraform" {
   ami = data.aws_ami.centos_ami.id
