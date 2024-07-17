@@ -10,6 +10,7 @@ variable "subnet_id" {
   default = "subnet-09fab819bd4be3d64"
 }
 data "aws_subnet" "datablock_subnet" {
+  depends_on = [ aws_subnet.vpcEC2TerraformSubnet.id ]
   id = var.subnet_id
 }
 
@@ -18,6 +19,7 @@ variable "security_group_id" {
   default = "sg-0d5c35489f4c8a206"
 }
 data "aws_security_group" "datablock_security_group" {
+  depends_on = [ aws_security_group.allow_all_traffic_terraform.id ]
   id = var.security_group_id
 }
 
