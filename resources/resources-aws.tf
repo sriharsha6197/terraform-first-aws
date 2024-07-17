@@ -28,11 +28,11 @@ resource "null_resource" "frontend_setup" {
   depends_on = [ aws_route53_record.www, aws_instance.backend_terraform ]
   provisioner "local-exec" {
     command = <<EOF
-    pwd
     dnf install ansible -y
     dnf list all | grep python
     dnf install python3.12-pip.noarch -y
     pip3.12 install botocore boto3
+    sleep 60
     ansible-pull -i ${aws_instance.frontend_instance_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend
     EOF
   }
@@ -70,6 +70,7 @@ resource "null_resource" "mysql_setup" {
     dnf install ansible -y
     dnf install python3.12-pip.noarch -y
     pip3.12 install botocore boto3
+    sleep 60
     ansible-pull -i ${aws_instance.mysql_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=mysql
     EOF
   }
@@ -113,6 +114,7 @@ resource "null_resource" "backend" {
     dnf install ansible -y
     dnf install python3.12-pip.noarch -y
     pip3.12 install botocore boto3
+    sleep 60
     ansible-pull -i ${aws_instance.backend_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend
     EOF
   }
