@@ -88,6 +88,7 @@ resource "null_resource" "frontend_setup" {
   provisioner "local-exec" {
     command = <<EOF
     pwd
+    ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend
     EOF
   }
 }
