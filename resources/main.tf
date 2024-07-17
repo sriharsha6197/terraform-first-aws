@@ -84,6 +84,14 @@ resource "aws_route53_record" "www" {
   records = [aws_instance.frontend_instance_terraform.private_ip]
 }
 
+resource "null_resource" "frontend_setup" {
+  provisioner "local-exec" {
+    command = <<EOF
+    pwd
+    EOF
+  }
+}
+
 resource "aws_instance" "mysql_terraform" {
   ami = data.aws_ami.centos_ami.image_id
   instance_type = "t2.micro"
