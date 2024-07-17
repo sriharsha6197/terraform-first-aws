@@ -176,7 +176,7 @@
 # }
 
 
-resource "aws_instance" "testing_instance4_provisioner_local_exec" {
+resource "aws_instance" "testing_instance5_provisioner_remote_exec" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t2.micro"
   subnet_id = data.aws_subnet.datablock_subnet.id
@@ -184,20 +184,22 @@ resource "aws_instance" "testing_instance4_provisioner_local_exec" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "testing_instance4-local-exec_provisioner"
+    Name = "testing_instance5-remote-exec_provisioner"
   }
 }
 
-resource "null_resource" "testing_instance_provisioner_local_exec_test4" {
-  triggers = {
-    instance_id = aws_instance.testing_instance4_provisioner_local_exec.id
+resource "null_resource" "testing_instance_provisioner_local_exec_test5" {  
+  connection {
+    type        = "ssh"
+    user        = "centos"
+    password    = "DevOps321"
+    host        = aws_instance.testing_instance5_provisioner_remote_exec.public_ip
   }
-
-  provisioner "local-exec" {
-    command = <<EOF
-sudo dnf install nginx -y
-systemctl enable nginx
-systemctl start nginx
-EOF
-  }
+provisioner "remote-exec" {
+  inline = [ 
+    "sudo dnf install nginx -y",
+    "sudo systemctl enable nginx",
+    "sudo systemctl start nginx"
+   ]
+}
 }
