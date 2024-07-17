@@ -24,6 +24,9 @@ resource "null_resource" "frontend_setup" {
     command = <<EOF
     pwd
     dnf install ansible -y
+    dnf list all | grep python
+    dnf install python3.12-pip.noarch -y
+    pip3.12 install botocore boto3
     ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend
     EOF
   }
