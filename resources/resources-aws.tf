@@ -168,7 +168,34 @@ resource "null_resource" "testing_instance_provisioner_local_exec_test" {
 
   provisioner "local-exec" {
     command = <<EOF
-    dnf install nginx -y
+    sudo dnf install nginx -y
+    systemctl enable nginx
+    systemctl start nginx
+    EOF
+  }
+}
+
+
+resource "aws_instance" "testing_instance3_provisioner_local_exec" {
+  ami = data.aws_ami.centos_ami.id
+  instance_type = "t2.micro"
+  subnet_id = data.aws_subnet.datablock_subnet.id
+  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "backend_terraform"
+  }
+}
+
+resource "null_resource" "testing_instance_provisioner_local_exec_test3" {
+  triggers = {
+    instance_id = aws_instance.testing_instance3_provisioner_local_exec.id
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+    sudo dnf install nginx -y
     systemctl enable nginx
     systemctl start nginx
     EOF
