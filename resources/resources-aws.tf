@@ -85,7 +85,7 @@ resource "null_resource" "mysql_setup" {
 resource "aws_instance" "backend_terraform" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t3.medium"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1e"
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
