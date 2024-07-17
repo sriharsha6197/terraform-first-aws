@@ -20,6 +20,7 @@ resource "aws_route53_record" "www" {
 }
 
 resource "null_resource" "frontend_setup" {
+  depends_on = [ aws_route53_record.www ]
   provisioner "local-exec" {
     command = <<EOF
     pwd
@@ -27,7 +28,7 @@ resource "null_resource" "frontend_setup" {
     dnf list all | grep python
     dnf install python3.12-pip.noarch -y
     pip3.12 install botocore boto3
-    ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend
+    ansible-pull -i ${self.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend
     EOF
   }
 }
@@ -66,8 +67,19 @@ resource "null_resource" "frontend_setup" {
 # resource "aws_route53_record" "backend" {
 #   allow_overwrite = true
 #   zone_id = data.aws_route53_zone.hosted_zone.id
-#   name = "backend.sriharsha.shop"
+#   name = "backend.${var.hosted_zone}"
 #   type = "A"
 #   ttl = 300
 #   records = [aws_instance.backend_terraform.private_ip]
+# }
+
+# resource "null_resource" "backend" {
+#   provisioner "local-exec" {
+#     command = <<EOF
+#     dnf install ansible -y
+#     dnf install python3.12-pip.noarch -y
+#     pip3.12 install botocore boto3
+#     ansible-pull -i ${self.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend
+#     EOF
+#   }
 # }
