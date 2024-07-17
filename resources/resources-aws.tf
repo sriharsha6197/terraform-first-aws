@@ -161,7 +161,7 @@ resource "aws_instance" "testing_instance2_provisioner_local_exec" {
   }
 }
 
-resource "null_resource" "testing_instance_provisioner_local_exec_test2" {
+resource "null_resource" "testing_instance_provisioner_local_exec_test" {
   triggers = {
     instance_id = aws_instance.testing_instance2_provisioner_local_exec.id
   }
