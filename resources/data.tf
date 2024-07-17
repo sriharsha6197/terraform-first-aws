@@ -10,7 +10,6 @@ variable "subnet_id" {
   default = "subnet-09fab819bd4be3d64"
 }
 data "aws_subnet" "datablock_subnet" {
-  depends_on = [ aws_subnet.vpcEC2TerraformSubnet.subnet_id ]
   id = var.subnet_id
 }
 
