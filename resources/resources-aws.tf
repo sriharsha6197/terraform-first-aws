@@ -124,7 +124,6 @@
 resource "aws_instance" "testing_instance_provisioner_local_exec" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t2.micro"
-  availability_zone = "us-east-1e"
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
