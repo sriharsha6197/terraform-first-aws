@@ -7,7 +7,7 @@ resource "aws_instance" "frontend_instance_terraform" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "frontendTerraform"
+    Name = "frontend_instance_terraform"
   }
 }
 resource "aws_route53_record" "www" {
@@ -53,7 +53,7 @@ resource "aws_instance" "mysql_terraform" {
   associate_public_ip_address = true
   
   tags = {
-    Name = "mysqlTerraform"
+    Name = "mysql_instance_Terraform"
   }
 }
 resource "aws_route53_record" "mysql" {
@@ -95,7 +95,7 @@ resource "aws_instance" "backend_terraform" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "backend_terraform"
+    Name = "backend_instance_terraform"
   }
 }
 resource "aws_route53_record" "backend" {
