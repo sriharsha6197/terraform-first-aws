@@ -21,7 +21,7 @@ resource "aws_route53_record" "www" {
 resource "aws_ssm_parameter" "backend_ip" {
   depends_on = [ aws_instance.backend_terraform ]
   name  = "expense.front.back_ip"
-  type  = "string"
+  type  = "String"
   value = aws_instance.backend_terraform.private_ip
 }
 resource "null_resource" "frontend_setup" {
@@ -104,7 +104,7 @@ resource "aws_route53_record" "backend" {
 resource "aws_ssm_parameter" "expense_back_mysql_ip" {
   depends_on = [ aws_instance.mysql_terraform ]
   name  = "expense.back.mysql_ip"
-  type  = "string"
+  type  = "String"
   value = aws_instance.mysql_terraform.private_ip
 }
 resource "null_resource" "backend" {
