@@ -176,7 +176,7 @@
 # }
 
 
-resource "aws_instance" "testing_instance3_provisioner_local_exec" {
+resource "aws_instance" "testing_instance4_provisioner_local_exec" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t2.micro"
   subnet_id = data.aws_subnet.datablock_subnet.id
@@ -184,13 +184,13 @@ resource "aws_instance" "testing_instance3_provisioner_local_exec" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "backend_terraform"
+    Name = "testing_instance4-local-exec_provisioner"
   }
 }
 
-resource "null_resource" "testing_instance_provisioner_local_exec_test3" {
+resource "null_resource" "testing_instance_provisioner_local_exec_test4" {
   triggers = {
-    instance_id = aws_instance.testing_instance3_provisioner_local_exec.id
+    instance_id = aws_instance.testing_instance4_provisioner_local_exec.id
   }
 
   provisioner "local-exec" {
