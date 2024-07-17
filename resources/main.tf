@@ -104,22 +104,22 @@ resource "aws_route53_record" "mysql" {
   records = [aws_instance.mysql_terraform.private_ip]
 }
 
-# resource "aws_instance" "backend_terraform" {
-#   ami = "ami-0b4f379183e5706b9"
-#   instance_type = "t2.micro"
-#   subnet_id = aws_subnet.vpcEC2TerraformSubnet.id
-#   vpc_security_group_ids = [aws_security_group.allow_all_traffic_terraform.id]
-#   associate_public_ip_address = true
+resource "aws_instance" "backend_terraform" {
+  ami = data.aws_ami.centos_ami.id
+  instance_type = "t2.micro"
+  subnet_id = data.aws_subnet.datablock_subnet.id
+  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+  associate_public_ip_address = true
 
-#   tags = {
-#     Name = "backend_terraform"
-#   }
-# }
-# resource "aws_route53_record" "backend" {
-#   allow_overwrite = true
-#   zone_id = "Z06906613UXR2QKNVHT2M"
-#   name = "backend.sriharsha.shop"
-#   type = "A"
-#   ttl = 300
-#   records = [aws_instance.backend_terraform.private_ip]
-# }
+  tags = {
+    Name = "backend_terraform"
+  }
+}
+resource "aws_route53_record" "backend" {
+  allow_overwrite = true
+  zone_id = data.aws_route53_zone.hosted_zone.id
+  name = "backend.sriharsha.shop"
+  type = "A"
+  ttl = 300
+  records = [aws_instance.backend_terraform.private_ip]
+}
