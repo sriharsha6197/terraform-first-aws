@@ -64,25 +64,25 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
 
 
 #########################################################FRONTEND_BACKEND_MYSQL_DNSRECORDSOF_FRONTEND_MYSQL_BACKEND###############
-resource "aws_instance" "frontend_instance_terraform" {
-  ami           = data.aws_ami.centos_ami.image_id
-  instance_type = "t2.micro"
-  subnet_id = data.aws_subnet.datablock_subnet.id
-  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
-  associate_public_ip_address = true
+# resource "aws_instance" "frontend_instance_terraform" {
+#   ami           = data.aws_ami.centos_ami.image_id
+#   instance_type = "t2.micro"
+#   subnet_id = data.aws_subnet.datablock_subnet.id
+#   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+#   associate_public_ip_address = true
 
-  tags = {
-    Name = "frontendTerraform"
-  }
-}
-resource "aws_route53_record" "www" {
-  allow_overwrite = true
-  zone_id = data.aws_route53_zone.hosted_zone.zone_id
-  name    = "frontend.${var.hosted_zone}"
-  type    = "A"
-  ttl     = 300
-  records = [aws_instance.frontend_instance_terraform.private_ip]
-}
+#   tags = {
+#     Name = "frontendTerraform"
+#   }
+# }
+# resource "aws_route53_record" "www" {
+#   allow_overwrite = true
+#   zone_id = data.aws_route53_zone.hosted_zone.zone_id
+#   name    = "frontend.${var.hosted_zone}"
+#   type    = "A"
+#   ttl     = 300
+#   records = [aws_instance.frontend_instance_terraform.private_ip]
+# }
 
 # resource "aws_instance" "mysql_terraform" {
 #   ami = "ami-0b4f379183e5706b9"
