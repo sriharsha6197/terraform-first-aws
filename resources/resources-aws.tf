@@ -35,7 +35,7 @@ resource "null_resource" "frontend_setup" {
   provisioner "remote-exec" {
     inline = [ 
       "sudo dnf install ansible -y",
-      "sudo ansible-pull -i ${aws_instance.frontend_instance_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend"
+      "sudo ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=frontend"
      ]
   }
 }
@@ -76,7 +76,7 @@ resource "null_resource" "mysql_setup" {
   provisioner "remote-exec" {
     inline = [  
       "sudo dnf install ansible -y",
-      "sudo ansible-pull -i ${aws_instance.mysql_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=mysql"
+      "sudo ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=mysql"
     ]
   }
 }
@@ -122,7 +122,7 @@ resource "null_resource" "backend" {
   provisioner "remote-exec" {
     inline = [  
       "sudo dnf install ansible -y",
-      "sudo ansible-pull -i ${aws_instance.backend_terraform.private_ip}, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend"
+      "sudo ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=backend"
     ]
   }
 }
