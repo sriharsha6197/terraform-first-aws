@@ -1,7 +1,43 @@
+######################################IAM_ROLE_CREATION#####################################
+resource "aws_iam_policy" "ec2AdminPolicy" {
+  name = "ec2AdminPolicy"
+  path = "/"
+  description = "ec2 admin policy"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:*",
+        ]
+        Effect = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+
+resource "aws_iam_role" "iam_role_for_ec2" {
+  name = "iam_role_for_ec2"
+  assume_role_policy = aws_iam_policy.ec2AdminPolicy.policy
+
+  tags = {
+    tag-key = "iam_role_for_ec2"
+  }
+}
+
+resource "aws_iam_instance_profile" "ec2Admin" {
+  name = "ec2Admin"
+  role = aws_iam_role.iam_role_for_ec2.name
+}
+
+
 # ###############################FRONTEND_BACKEND_MYSQL_DNSRECORDSOF_FRONTEND_MYSQL_BACKEND##############
 resource "aws_instance" "frontend_instance_terraform" {
   ami           = data.aws_ami.centos_ami.image_id
   instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.ec2Admin.name
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
@@ -50,6 +86,7 @@ resource "null_resource" "frontend_setup" {
 resource "aws_instance" "mysql_terraform" {
   ami = data.aws_ami.centos_ami.image_id
   instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.ec2Admin.name
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
@@ -94,6 +131,7 @@ resource "null_resource" "mysql_setup" {
 resource "aws_instance" "backend_terraform" {
   ami = data.aws_ami.centos_ami.id
   instance_type = "t3.medium"
+  iam_instance_profile = aws_iam_instance_profile.ec2Admin.name
   subnet_id = data.aws_subnet.datablock_subnet.id
   vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
   associate_public_ip_address = true
