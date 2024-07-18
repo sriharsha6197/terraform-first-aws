@@ -168,6 +168,7 @@ resource "null_resource" "backend" {
     password = "DevOps321"
     host = aws_instance.backend_terraform.public_ip
   }
+  depends_on = [ aws_route53_record.backend, aws_instance.mysql_terraform, aws_route53_record.mysql, null_resource.mysql_setup ]
   provisioner "remote-exec" {
     inline = [  
       "sudo dnf install ansible -y",
