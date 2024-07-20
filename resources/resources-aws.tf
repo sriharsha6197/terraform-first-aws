@@ -42,11 +42,11 @@ resource "aws_iam_instance_profile" "attach_instance" {
 
 # # ###############################FRONTEND_BACKEND_MYSQL_DNSRECORDSOF_FRONTEND_MYSQL_BACKEND##############
 resource "aws_instance" "frontend_instance_terraform" {
-  ami           = data.aws_ami.centos_ami.image_id
+  ami           = local.ami
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.attach_instance.name
-  subnet_id = data.aws_subnet.datablock_subnet.id
-  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+  subnet_id = local.subnet_id
+  vpc_security_group_ids = [local.security_group_id]
   associate_public_ip_address = true
 
   tags = {
@@ -55,7 +55,7 @@ resource "aws_instance" "frontend_instance_terraform" {
 }
 resource "aws_route53_record" "www" {
   allow_overwrite = true
-  zone_id = data.aws_route53_zone.hosted_zone.zone_id
+  zone_id = local.zone_id
   name    = "frontend.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
@@ -91,11 +91,11 @@ resource "null_resource" "frontend_setup" {
 
 
 resource "aws_instance" "mysql_terraform" {
-  ami = data.aws_ami.centos_ami.image_id
+  ami = local.ami
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.attach_instance.name
-  subnet_id = data.aws_subnet.datablock_subnet.id
-  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+  subnet_id = local.subnet_id
+  vpc_security_group_ids = [local.security_group_id]
   associate_public_ip_address = true
   
   tags = {
@@ -104,7 +104,7 @@ resource "aws_instance" "mysql_terraform" {
 }
 resource "aws_route53_record" "mysql" {
   allow_overwrite = true
-  zone_id = data.aws_route53_zone.hosted_zone.id
+  zone_id = local.zone_id
   name    = "mysql.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
@@ -136,11 +136,11 @@ resource "null_resource" "mysql_setup" {
 
 
 resource "aws_instance" "backend_terraform" {
-  ami = data.aws_ami.centos_ami.id
+  ami = local.ami
   instance_type = "t3.medium"
   iam_instance_profile = aws_iam_instance_profile.attach_instance.name
-  subnet_id = data.aws_subnet.datablock_subnet.id
-  vpc_security_group_ids = [data.aws_security_group.datablock_security_group.id]
+  subnet_id = local.subnet_id
+  vpc_security_group_ids = [local.security_group_id]
   associate_public_ip_address = true
 
   tags = {
@@ -149,7 +149,7 @@ resource "aws_instance" "backend_terraform" {
 }
 resource "aws_route53_record" "backend" {
   allow_overwrite = true
-  zone_id = data.aws_route53_zone.hosted_zone.id
+  zone_id = local.zone_id
   name = "backend.${var.hosted_zone}"
   type = "A"
   ttl = 300
