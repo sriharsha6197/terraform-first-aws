@@ -1,7 +1,7 @@
 ######################################IAM_ROLE_CREATION#####################################
 
-resource "aws_iam_role" "ec2_role_for_instances" {
-  name = "ec2_role_for_instances"
+resource "aws_iam_role" "ec2_role_for_instances1" {
+  name = "ec2_role_for_instances1"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -14,9 +14,9 @@ resource "aws_iam_role" "ec2_role_for_instances" {
   })
 }
 
-resource "aws_iam_role_policy" "iam_role_policy" {
-  name   = "iam_role_policy"
-  role   = aws_iam_role.ec2_role_for_instances.id
+resource "aws_iam_role_policy" "iam_role_policy1" {
+  name   = "iam_role_policy1"
+  role   = aws_iam_role.ec2_role_for_instances1.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -33,9 +33,9 @@ resource "aws_iam_role_policy" "iam_role_policy" {
   })
 }
 
-resource "aws_iam_instance_profile" "attach_instance" {
-  name = "attach_instance"
-  role = aws_iam_role.ec2_role_for_instances.name
+resource "aws_iam_instance_profile" "attach_instance1" {
+  name = "attach_instance1"
+  role = aws_iam_role.ec2_role_for_instances1.name
 }
 
 
