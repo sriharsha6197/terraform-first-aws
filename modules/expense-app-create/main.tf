@@ -51,7 +51,7 @@ resource "aws_instance" "instance" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "{var.component}_terraform"
+    Name = "${var.component}_terraform"
   }
 }
 resource "aws_route53_record" "record" {
