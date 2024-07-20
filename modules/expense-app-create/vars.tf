@@ -1,4 +1,4 @@
-variable "component" {
+# variable "component" {
 
-}
+# }
 
