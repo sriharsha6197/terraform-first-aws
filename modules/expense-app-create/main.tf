@@ -1,9 +1,57 @@
+######################################IAM_ROLE_CREATION#####################################
+
+resource "aws_iam_role" "ec2_role_for_instance" {
+  name = "ec2_role_for_instance"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+  })
+  lifecycle {
+    ignore_changes = [ "ec2_role_for_instance" ]
+  }
+}
+resource "aws_iam_role_policy" "iam_role_policyy" {
+  name   = "iam_role_policyy"
+  role   = aws_iam_role.ec2_role_for_instance.id
+  lifecycle {
+    ignore_changes = [ "iam_role_policyy" ]
+  }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:*",
+          "ssm:*"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+resource "aws_iam_instance_profile" "iam_role_for_instance" {
+  lifecycle {
+    ignore_changes = [ "iam_role_for_instance" ]
+  }
+  name = "iam_role_for_instance"
+  role = aws_iam_role.ec2_role_for_instance.name
+}
+
+
+
 
 # ###############################FRONTEND_BACKEND_MYSQL_DNSRECORDSOF_FRONTEND_MYSQL_BACKEND##############
 resource "aws_instance" "instance" {
   ami           = local.ami
   instance_type = "t2.micro"
-  iam_instance_profile = "iam_role_for_instance"
+  iam_instance_profile = aws_iam_instance_profile.iam_role_for_instance.name
   subnet_id = local.subnet_id
   vpc_security_group_ids = [local.security_group_id]
   associate_public_ip_address = true
