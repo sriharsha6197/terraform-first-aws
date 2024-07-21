@@ -3,7 +3,7 @@
 resource "aws_instance" "instance" {
   ami           = local.ami
   instance_type = "t2.micro"
-  iam_instance_profile = data.aws_iam_role.instance_iam_role.name
+  iam_instance_profile = "iam_role_for_instance"
   subnet_id = local.subnet_id
   vpc_security_group_ids = [local.security_group_id]
   associate_public_ip_address = true
