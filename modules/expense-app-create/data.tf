@@ -39,6 +39,5 @@ locals {
 
 
 data "aws_iam_instance_profile" "attach_instance" {
-  name = "attach_instance"
-  role_name = "ec2_role_for_instances"
+  name = "ec2_role_for_instances"
 }
