@@ -1,44 +1,8 @@
-######################################IAM_ROLE_CREATION#####################################
-
-resource "aws_iam_role" "ec2_role_for_instance" {
-  name = "ec2_role_for_instance"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-  })
-}
-resource "aws_iam_role_policy" "iam_role_policyy" {
-  name   = "iam_role_policyy"
-  role   = aws_iam_role.ec2_role_for_instance.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ec2:*",
-          "ssm:*"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
-}
-resource "aws_iam_instance_profile" "iam_role_for_instance" {
-  name = "iam_role_for_instance"
-  role = aws_iam_role.ec2_role_for_instance.name
-}
-
-
-
-
 # ###############################FRONTEND_BACKEND_MYSQL_DNSRECORDSOF_FRONTEND_MYSQL_BACKEND##############
+module "iam_role" {
+  source = "./iam_role"
+}
+
 resource "aws_instance" "instance" {
   ami           = local.ami
   instance_type = "t2.micro"
