@@ -13,14 +13,14 @@ resource "aws_iam_role" "ec2_role_for_instance" {
     }]
   })
   lifecycle {
-    ignore_changes = [ "ec2_role_for_instance" ]
+    ignore_changes = [ ec2_role_for_instance ]
   }
 }
 resource "aws_iam_role_policy" "iam_role_policyy" {
   name   = "iam_role_policyy"
   role   = aws_iam_role.ec2_role_for_instance.id
   lifecycle {
-    ignore_changes = [ "iam_role_policyy" ]
+    ignore_changes = [ iam_role_policyy ]
   }
   policy = jsonencode({
     Version = "2012-10-17"
@@ -38,7 +38,7 @@ resource "aws_iam_role_policy" "iam_role_policyy" {
 }
 resource "aws_iam_instance_profile" "iam_role_for_instance" {
   lifecycle {
-    ignore_changes = [ "iam_role_for_instance" ]
+    ignore_changes = [ iam_role_for_instance ]
   }
   name = "iam_role_for_instance"
   role = aws_iam_role.ec2_role_for_instance.name
