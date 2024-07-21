@@ -1,3 +1,3 @@
-variable "componentharsha" {
+# variable "component" {
   
-}
+# }

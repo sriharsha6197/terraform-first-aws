@@ -1,9 +1,9 @@
-module "frontend" {
-  source = "./expense-app-create"
-  componentharsha = "frontend"
-}
+# module "frontend" {
+#   source = "./expense-app-create"
+#   component = "frontend"
+# }
 
-module "backend" {
-  source = "./expense-app-create"
-  componentharsha = "backend"
-}
+# module "backend" {
+#   source = "./expense-app-create"
+#   component = "backend"
+# }
