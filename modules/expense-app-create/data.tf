@@ -7,7 +7,7 @@ data "aws_ami" "centos_ami" {
 
 ###################################VARIABLE_AND_DATA_BLOCK_FOR_SUBNETiD#########
 variable "subnet_id" {
-  default = "subnet-0b3ffc9e5da94a034"
+  default = "subnet-0cc3d1350d0f620b3"
 }
 data "aws_subnet" "datablock_subnet" {
   id = var.subnet_id
@@ -15,7 +15,7 @@ data "aws_subnet" "datablock_subnet" {
 
 ##################################SECURITYGROUP_VARIABLE_BLOCK_DATA_BLOCK#######
 variable "security_group_id" {
-  default = "sg-081d5075e31848bef"
+  default = "sg-0266bc2495f016891"
 }
 data "aws_security_group" "datablock_security_group" {
   id = var.security_group_id
