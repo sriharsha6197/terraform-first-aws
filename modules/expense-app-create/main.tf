@@ -2,6 +2,9 @@
 
 resource "aws_iam_role" "ec2_role_for_instance" {
   name = "ec2_role_for_instance"
+  lifecycle {
+    ignore_changes = [ ec2_role_for_instance ]
+  }
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -12,9 +15,6 @@ resource "aws_iam_role" "ec2_role_for_instance" {
       }
     }]
   })
-  lifecycle {
-    ignore_changes = [ ec2_role_for_instance ]
-  }
 }
 resource "aws_iam_role_policy" "iam_role_policyy" {
   name   = "iam_role_policyy"
