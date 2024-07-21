@@ -61,3 +61,43 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
+
+
+
+
+######################################IAM_ROLE_CREATION#####################################
+
+resource "aws_iam_role" "ec2_role_for_instances" {
+  name = "ec2_role_for_instances"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "iam_role_policy" {
+  name   = "iam_role_policy"
+  role   = aws_iam_role.ec2_role_for_instances.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:*",
+          "ssm:*"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+
