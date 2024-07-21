@@ -67,8 +67,8 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
 
 ######################################IAM_ROLE_CREATION#####################################
 
-resource "aws_iam_role" "ec2_role_for_instances" {
-  name = "ec2_role_for_instances"
+resource "aws_iam_role" "ec2_role_for_instance" {
+  name = "ec2_role_for_instance"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -81,9 +81,9 @@ resource "aws_iam_role" "ec2_role_for_instances" {
   })
 }
 
-resource "aws_iam_role_policy" "iam_role_policy" {
-  name   = "iam_role_policy"
-  role   = aws_iam_role.ec2_role_for_instances.id
+resource "aws_iam_role_policy" "iam_role_policyy" {
+  name   = "iam_role_policyy"
+  role   = aws_iam_role.ec2_role_for_instance.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -102,7 +102,7 @@ resource "aws_iam_role_policy" "iam_role_policy" {
 
 resource "aws_iam_instance_profile" "iam_role_for_instance" {
   name = "iam_role_for_instance"
-  role = aws_iam_role.ec2_role_for_instances.name
+  role = aws_iam_role.ec2_role_for_instance.name
 }
 
 

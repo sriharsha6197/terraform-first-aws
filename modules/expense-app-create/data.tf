@@ -45,7 +45,6 @@ data "aws_iam_role" "instance_iam_role" {
   name = var.iam_role 
 }
 
-data "aws_iam_instance_profile" "instance_profile" {
-  name = "instance_profile"
-  role_name = "ec2_role_for_instances"
+data "aws_iam_instance_profile" "inst" {
+  name = "inst"
 }
