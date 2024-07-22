@@ -38,3 +38,7 @@ resource "aws_iam_instance_profile" "iam_role_for_instance" {
   role = aws_iam_role.ec2_role_for_instance.name
 }
 
+output "instance_role_profile" {
+  value = resource.aws_iam_instance_profile.iam_role_for_instance.name
+}
+
