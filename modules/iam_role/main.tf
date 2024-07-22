@@ -33,8 +33,8 @@ resource "aws_iam_role_policy" "iam_role_policyy" {
     ]
   })
 }
-resource "aws_iam_instance_profile" "iam_role_for_instance" {
-  name = "iam_role_for_instance"
+resource "aws_iam_instance_profile" "iam_role_for_instance_latest" {
+  name = "iam_role_for_instance_latest"
   role = aws_iam_role.ec2_role_for_instance.name
 }
 
