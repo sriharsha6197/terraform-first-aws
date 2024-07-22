@@ -39,6 +39,6 @@ resource "aws_iam_instance_profile" "iam_role_for_instance_latest" {
 }
 
 output "instance_role_profile" {
-  value = resource.aws_iam_instance_profile.iam_role_for_instance.name
+  value = resource.aws_iam_instance_profile.iam_role_for_instance_latest.name
 }
 
