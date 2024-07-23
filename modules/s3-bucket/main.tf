@@ -5,10 +5,6 @@ provider "aws" {
 resource "aws_s3_bucket" "my-tf-test-bucket-harsha" {
   bucket = "my-tf-test-bucket-harsha"
 }
-resource "aws_s3_bucket_acl" "acl_bucket" {
-  bucket = aws_s3_bucket.my-tf-test-bucket-harsha.id
-  acl    = "private"
-}
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
   bucket = aws_s3_bucket.my-tf-test-bucket-harsha.id
 
