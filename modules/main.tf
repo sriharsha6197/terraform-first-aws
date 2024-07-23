@@ -14,8 +14,8 @@
 # }
 
 module "s3" {
+  count = length(var.buckets_to_create)
   source = "./s3-bucket"
-  buckets_to_create = var.buckets
 }
 
 terraform {
