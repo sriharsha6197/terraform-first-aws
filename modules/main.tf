@@ -18,7 +18,6 @@ module "s3" {
 }
 
 terraform {
-  backend "local" {
-    
+  backend "local" {b
   }
 }
