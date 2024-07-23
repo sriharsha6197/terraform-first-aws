@@ -13,6 +13,9 @@ resource "aws_instance" "instance" {
     Name = "${var.component}_instance_terraform"
   }
 }
+output "instance" {
+  value = resource.aws_instance.instance.private_ip
+}
 resource "aws_route53_record" "record" {
   allow_overwrite = true
   zone_id = local.zone_id
@@ -21,12 +24,7 @@ resource "aws_route53_record" "record" {
   ttl     = 300
   records = [aws_instance.instance.private_ip]
 }
-# resource "aws_ssm_parameter" "expense_frontend_backend_ip" {
-#   depends_on = [ aws_instance.backend_terraform ]
-#   name  = "expense_frontend_backend_ip"
-#   type  = "String"
-#   value = aws_instance.backend_terraform.private_ip
-# }
+
 resource "null_resource" "frontend_setup" {
   connection {
     type = "ssh"

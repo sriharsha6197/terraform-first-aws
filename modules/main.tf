@@ -2,7 +2,7 @@ module "role" {
   source = "./iam_role"
 }
 
-module "expense" {
+module "frontend" {
   count = length(var.instances)
   source = "./expense-app-create"
   component = var.instances[count.index]
@@ -10,10 +10,5 @@ module "expense" {
 }
 
 variable "instances" {
-  default = [ "frontend","mysql","backend" ]
+  default = [ "frontend","backend","mysql" ]
 }
-
-
-
-
-
