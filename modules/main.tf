@@ -18,6 +18,9 @@ module "s3" {
 }
 
 terraform {
-  backend "local" {
+  backend "s3" {
+    bucket = "sri6197-bucket"
+    key = "state-file"
+    region = "us-east-1"
   }
 }
