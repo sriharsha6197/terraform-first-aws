@@ -1,8 +1,6 @@
 resource "aws_s3_bucket" "my-tf-test-bucket" {
   bucket = "my-tf-test-bucket"
-  tags = {
-    Name        = "my-tf-test-bucket"
-  }
+  region = "us-east-1"
 }
 resource "aws_s3_bucket_acl" "acl_bucket" {
   bucket = aws_s3_bucket.my-tf-test-bucket.id
