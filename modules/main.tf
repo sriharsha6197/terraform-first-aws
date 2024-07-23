@@ -16,6 +16,9 @@ module "bucket" {
   source = "./s3-bucket"
 }
 terraform {
-  backend "local" {
+  backend "s3" {
+    bucket = "sri6197-bucket"
+    path = "state-file/terraform.tfstate"
+    region = "us-east-1"
   }
 }
