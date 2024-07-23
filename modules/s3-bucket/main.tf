@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  count = length(var.buckets_to_create)
-  bucket = "${var.buckets_to_create[count.index]}"
+  for_each = length(var.buckets_to_create)
+  bucket = "${var.buckets_to_create[for_each.index]}"
 
 }
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
