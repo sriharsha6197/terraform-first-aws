@@ -4,12 +4,12 @@ provider "aws" {
 
 resource "aws_s3_bucket" "bucket" {
   count = length(var.buckets_to_create)
-  bucket = "${var.buckets_to_create}"
-  
+  bucket = "${var.buckets_to_create[count.index]}"
+
 }
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
   count = length(var.buckets_to_create)
-  bucket = "${var.buckets_to_create}"
+  bucket = "${var.buckets_to_create[count.index]}"
 
   block_public_acls       = true
   block_public_policy     = true
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
 }
 resource "aws_s3_bucket_versioning" "versioning_bucket" {
   count = length(var.buckets_to_create)
-  bucket = "${var.buckets_to_create}"
+  bucket = "${var.buckets_to_create[count.index]}"
   versioning_configuration {
     status = "Enabled"
   }
