@@ -20,7 +20,7 @@ module "s3" {
 terraform {
   backend "s3" {
     bucket = "sri6197-bucket"
-    key = "state-file"
+    key = "state-file/terraform.tfstate*"
     region = "us-east-1"
   }
 }
