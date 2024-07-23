@@ -20,7 +20,7 @@ module "s3" {
 terraform {
   backend "s3" {
     bucket = "my-tf-test-bucket-harsha"
-    key = "state-file/"
+    key = "state-file"
     region = "us-east-1"
   } 
 }
