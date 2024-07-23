@@ -14,9 +14,13 @@
 # }
 
 module "s3" {
+  for_each = length(var.buckets)
   source = "./s3-bucket"
+  buckets_to_create = var.buckets[for_each.index]
 }
-
+variable "buckets" {
+  default = ["sri6197-bucket","harsha7916-bucket"]
+}
 terraform {
   backend "s3" {
     bucket = "my-tf-test-bucket-harsha"
