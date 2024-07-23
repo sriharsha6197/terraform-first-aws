@@ -16,3 +16,9 @@
 module "s3" {
   source = "./s3-bucket"
 }
+
+terraform {
+  backend "local" {
+    
+  }
+}
