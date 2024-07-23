@@ -16,11 +16,3 @@
 module "s3" {
   source = "./s3-bucket"
 }
-
-terraform {
-  backend "s3" {
-    bucket = "my-tf-test-bucket-harsha"
-    key = "state-file"
-    region = "us-east-1"
-  } 
-}
