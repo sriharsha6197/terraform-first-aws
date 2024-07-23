@@ -12,11 +12,6 @@
 # variable "instances" {
 #   default = [ "frontend","backend","mysql" ]
 # }
-
-module "s3" {
-  source = "./s3-bucket"
-}
-
 terraform {
   backend "s3" {
     bucket = "sri6197-bucket"
