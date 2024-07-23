@@ -3,9 +3,11 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
+  count = length(var.buckets_to_create)
   bucket = "${var.buckets_to_create}"
 }
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
+  count = length(var.buckets_to_create)
   bucket = aws_s3_bucket.bucket.id
 
   block_public_acls       = true
@@ -14,6 +16,7 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
   restrict_public_buckets = true
 }
 resource "aws_s3_bucket_versioning" "versioning_bucket" {
+  count = length(var.buckets_to_create)
   bucket = aws_s3_bucket.bucket.id
   versioning_configuration {
     status = "Enabled"
