@@ -5,7 +5,8 @@ module "bucket" {
   source = "./s3-bucket"
 }
 module "expense" {
-  source = "./${var.env}expense-app-create"
+  env = var.env
+  source = "./expense-app-create"
   for_each = var.instances
   component = each.key
   instance_profile = module.role.instance_role_profile
