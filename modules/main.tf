@@ -15,7 +15,9 @@ variable "instances" {
   type = set(string)
   default = [ "frontend","backend","mysql" ]
 }
-
+variable "env" {
+  
+}
 terraform {
   backend "local" {
 

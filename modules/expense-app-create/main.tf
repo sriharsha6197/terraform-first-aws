@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "${var.component}_instance_terraform"
+    Name = "${var.env}_${var.component}_instance_terraform"
   }
 }
 output "instance" {
@@ -19,7 +19,7 @@ output "instance" {
 resource "aws_route53_record" "record" {
   allow_overwrite = true
   zone_id = local.zone_id
-  name    = "${var.component}.${var.hosted_zone}"
+  name    = "${var.env}.${var.component}.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
   records = [aws_instance.instance.private_ip]

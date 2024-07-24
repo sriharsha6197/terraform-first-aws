@@ -1,3 +1,1 @@
-variable "component" {
-    
-}
+env = "dev"
