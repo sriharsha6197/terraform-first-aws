@@ -35,6 +35,4 @@ locals {
   subnet_id = data.aws_subnet.datablock_subnet.id
   security_group_id = data.aws_security_group.datablock_security_group.id
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
-  instance1 = aws_instance.instance.tags[Name]
-  instance2 = aws_instance.instance.tags
 }
