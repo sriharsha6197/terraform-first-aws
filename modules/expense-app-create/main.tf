@@ -25,20 +25,20 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.instance.private_ip]
 }
 
-resource "null_resource" "frontend_setup" {
-  connection {
-    type = "ssh"
-    user = "centos"
-    password = "DevOps321"
-    host = aws_instance.instance.public_ip
-  }
-  depends_on = [ aws_route53_record.record ]
-  provisioner "remote-exec" {
-    inline = [ 
-      "sudo dnf install ansible -y",
-      "sudo dnf install python3.12-pip.noarch -y",
-      "sudo pip3.12 install botocore boto3",
-      "sudo ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=${var.component}"
-     ]
-  }
-}
+# resource "null_resource" "frontend_setup" {
+#   connection {
+#     type = "ssh"
+#     user = "centos"
+#     password = "DevOps321"
+#     host = aws_instance.instance.public_ip
+#   }
+#   depends_on = [ aws_route53_record.record ]
+#   provisioner "remote-exec" {
+#     inline = [ 
+#       "sudo dnf install ansible -y",
+#       "sudo dnf install python3.12-pip.noarch -y",
+#       "sudo pip3.12 install botocore boto3",
+#       "sudo ansible-pull -i localhost, -U https://github.com/sriharsha6197/expense-ansible-test.git -e ansible_user=centos -e ansible_password=DevOps321 expense.yaml -e role_name=${var.component}"
+#      ]
+#   }
+# }
