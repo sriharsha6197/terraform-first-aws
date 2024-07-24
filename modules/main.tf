@@ -18,6 +18,7 @@ variable "instances" {
 
 
 terraform {
-  backend "s3" {   
+  backend "local" {
+
   }
 }
