@@ -16,7 +16,6 @@ variable "instances" {
   default = [ "frontend","backend","mysql" ]
 }
 
-
 terraform {
   backend "local" {
 
