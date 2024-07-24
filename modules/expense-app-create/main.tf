@@ -19,7 +19,7 @@ output "instance" {
 resource "aws_route53_record" "record" {
   allow_overwrite = true
   zone_id = local.zone_id
-  name    = "${var.env}.${var.component}.${var.hosted_zone}"
+  name    = "${var.env}_${var.component}.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
   records = [aws_instance.instance.private_ip]
