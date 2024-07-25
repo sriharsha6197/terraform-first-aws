@@ -8,7 +8,7 @@ module "bucket" {
 }
 module "expense" {
   env = var.env
-  instanceType = var.instanceType
+  instanceTypes = var.instanceTypes
   source = "./expense-app-create"
   for_each = var.instances
   component = each.key
@@ -20,7 +20,7 @@ variable "instances" {
 variable "env" {
   
 }
-variable "instanceType" {
+variable "instanceTypes" {
   
 }
 terraform {

@@ -8,5 +8,5 @@ variable "env" {
   
 }
 variable "instanceTypes" {
-  type = list(string)
+  type = map(string)
 }
