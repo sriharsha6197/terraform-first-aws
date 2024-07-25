@@ -12,7 +12,7 @@ module "expense" {
   instanceType = each.value
   source = "./expense-app-create"
   component = each.key
-  instance_profile = module.role.instance_role_profile
+  instance_profile = module.role.instance_role_profile1
   Name = each.key
 }
 
@@ -35,3 +35,4 @@ terraform {
 
   }
 }
+

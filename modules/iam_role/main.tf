@@ -1,6 +1,6 @@
 ######################################IAM_ROLE_CREATION#####################################
 
-resource "aws_iam_role" "ec2_role_for_instance" {
+resource "aws_iam_role" "ec2_role_for_instance1" {
   name = "${var.env}_ec2_role_for_instance1"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -14,11 +14,11 @@ resource "aws_iam_role" "ec2_role_for_instance" {
   })
 }
 output "role_arn" {
-  value = aws_iam_role.ec2_role_for_instance.arn
+  value = aws_iam_role.ec2_role_for_instance1.arn
 }
-resource "aws_iam_role_policy" "iam_role_policyy" {
+resource "aws_iam_role_policy" "iam_role_policyy1" {
   name   = "${var.env}_iam_role_policyy1"
-  role   = aws_iam_role.ec2_role_for_instance.id
+  role   = aws_iam_role.ec2_role_for_instance1.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -33,12 +33,12 @@ resource "aws_iam_role_policy" "iam_role_policyy" {
     ]
   })
 }
-resource "aws_iam_instance_profile" "iam_role_for_instance_latest" {
+resource "aws_iam_instance_profile" "iam_role_for_instance_latest1" {
   name = "${var.env}_iam_role_for_instance_latest1"
-  role = aws_iam_role.ec2_role_for_instance.name
+  role = aws_iam_role.ec2_role_for_instance1.name
 }
 
-output "instance_role_profile" {
-  value = resource.aws_iam_instance_profile.iam_role_for_instance_latest.name
+output "instance_role_profile1" {
+  value = resource.aws_iam_instance_profile.iam_role_for_instance_latest1.name
 }
 
