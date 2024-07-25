@@ -10,3 +10,6 @@ variable "env" {
 variable "instanceType" {
   
 }
+variable "count" {
+  
+}
