@@ -1,7 +1,9 @@
 module "role" {
+  env = var.env
   source = "./iam_role"
 }
 module "bucket" {
+  env = var.env
   source = "./s3-bucket"
 }
 module "expense" {
