@@ -1,6 +1,6 @@
 env = "dev-ec2"
 instances = [ "frontend","mysql","backend" ]
-"instanceTypes" ={
+instanceTypes ={
   type = map(string)
   default = {
     "frontend" = "t2.micro",
