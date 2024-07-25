@@ -1,6 +1,6 @@
 env = "dev-ec2"
 instances = [ "frontend","mysql","backend" ]
-instanceTypes ={
+instanceTypes = {
   default = {
     "frontend" = "t2.micro",
     "mysql" = "t3.micro",
