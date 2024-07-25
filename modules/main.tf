@@ -8,8 +8,7 @@ module "bucket" {
 }
 module "expense" {
   env = var.env
-  count = count
-  instanceType = var.instanceType[count.index]
+  instanceType = var.instanceType
   source = "./expense-app-create"
   for_each = var.instances
   component = each.key
