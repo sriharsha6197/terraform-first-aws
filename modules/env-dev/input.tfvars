@@ -1,2 +1,10 @@
 env = "dev-ec2"
-instanceType = ["t2.micro","t3.small","t3.medium"]
+instances = [ "frontend","mysql","backend" ]
+variable "instanceTypes"{
+  type = map(string)
+  default = {
+    "frontend" = "t2.micro",
+    "mysql" = "t3.micro",
+    "backend" = "t3.medium"
+  }
+}

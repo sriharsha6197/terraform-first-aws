@@ -16,8 +16,6 @@ module "expense" {
 }
 
 variable "instances" {
-  type = set(string)
-  default = [ "frontend","mysql","backend" ]
 }
 variable "env" {
   

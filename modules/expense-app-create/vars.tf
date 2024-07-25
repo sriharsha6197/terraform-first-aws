@@ -7,6 +7,6 @@ variable "instance_profile" {
 variable "env" {
   
 }
-variable "instanceType" {
+variable "instanceTypes" {
   type = list(string)
 }
