@@ -1,1 +1,1 @@
-env = "prod"
+env = "ec2-prod"

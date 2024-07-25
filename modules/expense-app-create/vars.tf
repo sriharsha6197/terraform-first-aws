@@ -1,9 +1,12 @@
 variable "component" {
   
 }
+variable "instance_profile" {
+  
+}
 variable "env" {
   
 }
-variable "instance_profile" {
+variable "instanceType" {
   
 }

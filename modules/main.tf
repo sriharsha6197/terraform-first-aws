@@ -1,13 +1,12 @@
 module "role" {
-  env = var.env
   source = "./iam_role"
 }
 module "bucket" {
-  env = var.env
   source = "./s3-bucket"
 }
 module "expense" {
   env = var.env
+  instanceType = var.instanceType[index]
   source = "./expense-app-create"
   for_each = var.instances
   component = each.key
@@ -16,9 +15,12 @@ module "expense" {
 
 variable "instances" {
   type = set(string)
-  default = [ "frontend","backend","mysql" ]
+  default = [ "frontend","mysql","backend" ]
 }
 variable "env" {
+  
+}
+variable "instanceType" {
   
 }
 terraform {

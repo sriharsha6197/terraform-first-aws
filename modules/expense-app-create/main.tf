@@ -3,7 +3,7 @@
 
 resource "aws_instance" "instance" {
   ami           = local.ami
-  instance_type = "t2.micro"
+  instance_type = var.instanceType
   iam_instance_profile = var.instance_profile
   subnet_id = local.subnet_id
   vpc_security_group_ids = [local.security_group_id]
@@ -19,7 +19,7 @@ output "instance" {
 resource "aws_route53_record" "record" {
   allow_overwrite = true
   zone_id = local.zone_id
-  name    = "${var.env}_${var.component}.${var.hosted_zone}"
+  name    = "${var.env}.${var.component}.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
   records = [aws_instance.instance.private_ip]
