@@ -4,12 +4,12 @@ provider "aws" {
 
 resource "aws_s3_bucket" "bucket" {
   for_each = var.buckets_to_create
-  bucket = "${each.key}_${var.env}"
+  bucket = "${each.key}-${var.env}"
 
 }
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
   for_each = var.buckets_to_create
-  bucket = "${each.key}_${var.env}"
+  bucket = "${each.key}-${var.env}"
 
   block_public_acls       = true
   block_public_policy     = true
