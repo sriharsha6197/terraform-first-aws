@@ -18,7 +18,7 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
 }
 resource "aws_s3_bucket_versioning" "versioning_bucket" {
   for_each = var.buckets_to_create
-  bucket = "${each.key}_${var.env}"
+  bucket = "${each.key}-${var.env}"
   versioning_configuration {
     status = "Enabled"
   }
