@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "${var.env}_${var.component}_instance_terraform"
+    Name = var.Name
   }
 }
 # output "instance" {
