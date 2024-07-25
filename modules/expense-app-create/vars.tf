@@ -8,5 +8,5 @@ variable "env" {
   
 }
 variable "instanceType" {
-  type = set(string)
+  type = list(string)
 }
