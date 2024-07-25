@@ -5,4 +5,3 @@ instanceTypes = {
     mysql = "t3.small",
     backend = "t3.medium"
 }
-Name = var.env-INSTANCE

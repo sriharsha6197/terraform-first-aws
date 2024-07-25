@@ -13,7 +13,6 @@ module "expense" {
   source = "./expense-app-create"
   component = each.key
   instance_profile = module.role.instance_role_profile1
-  Name = each.key
 }
 
 variable "instances" {
@@ -26,9 +25,6 @@ variable "instanceTypes" {
   default = {
 
   }
-}
-variable "Name" {
-  
 }
 terraform {
   backend "s3" {

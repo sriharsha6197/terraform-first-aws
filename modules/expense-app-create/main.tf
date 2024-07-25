@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
   associate_public_ip_address = true
 
   tags = {
-    Name = var.Name
+    Name = "${var.component}_${var.env}"
   }
 }
 # output "instance" {

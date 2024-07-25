@@ -5,4 +5,3 @@ instanceTypes = {
     mysql = "t3.micro",
     backend = "t3.medium"
 }
-Name = "instance-${var.env}"

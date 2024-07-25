@@ -9,6 +9,3 @@ variable "env" {
 }
 variable "instanceType" {
 }
-variable "Name" {
-  
-}
