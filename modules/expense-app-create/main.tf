@@ -15,7 +15,7 @@ resource "aws_instance" "instance" {
   }
 }
 output "instance" {
-  value = aws_instance.instance[each.private_ip]
+  value = aws_instance.instance[each.key]
 }
 resource "aws_route53_record" "record" {
   allow_overwrite = true
@@ -23,7 +23,7 @@ resource "aws_route53_record" "record" {
   name    = "${var.env}.${var.component}.${var.hosted_zone}"
   type    = "A"
   ttl     = 300
-  records = aws_instance.instance[each.private_ip]
+  records = aws_instance.instance[each.key]
 }
 
 # resource "null_resource" "frontend_setup" {
