@@ -3,7 +3,7 @@
 
 resource "aws_instance" "instance" {
   ami           = local.ami
-  instance_type = var.instanceType
+  instance_type = var.instanceType[index(var.instanceType)]
   iam_instance_profile = var.instance_profile
   subnet_id = local.subnet_id
   vpc_security_group_ids = [local.security_group_id]
