@@ -7,5 +7,5 @@ variable "instance_profile" {
 variable "env" {
   
 }
-variable "instanceTypes" {
+variable "instanceType" {
 }

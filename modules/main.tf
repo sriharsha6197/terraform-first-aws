@@ -8,9 +8,9 @@ module "bucket" {
 }
 module "expense" {
   env = var.env
-  instanceTypes = var.instanceTypes
+  for_each = var.instanceTypes
+  instanceType = each.value
   source = "./expense-app-create"
-  for_each = var.instances
   component = each.key
   instance_profile = module.role.instance_role_profile
 }
