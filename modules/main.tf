@@ -21,7 +21,9 @@ variable "env" {
   
 }
 variable "instanceTypes" {
-  
+  default = {
+    
+  }
 }
 terraform {
   backend "s3" {
