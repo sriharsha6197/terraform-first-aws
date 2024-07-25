@@ -21,8 +21,9 @@ variable "env" {
   
 }
 variable "instanceTypes" {
+  type = map(string)
   default = {
-    
+
   }
 }
 terraform {
